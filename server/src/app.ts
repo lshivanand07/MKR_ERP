@@ -3,13 +3,18 @@ import express from "express";
 import cors from "cors";
 import type { CorsOptions } from "cors";
 import http from "http";
+import path from "path";
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./swagger.js";
 
 /* =====================================================
    ROUTES
 ===================================================== */
-
+import adminRoutes from "./routes/adminRoutes.js";
+import adminAuthRoutes from "./routes/adminAuthRoutes.js";
+import employeeRoutes from "./routes/employeeRoutes.js";
+import employeeBankDetailsRoutes from "./routes/employeeBankDetailsRoutes.js";
+import employeeLoginRoutes from "./routes/employeeLoginRoutes.js";
 
 const app = express();
 
@@ -100,6 +105,12 @@ app.use(
 app.disable("x-powered-by");
 
 /* =====================================================
+   STATIC FILES (UPLOADS)
+===================================================== */
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
+app.use("/uploads", express.static(path.join(process.cwd(), "server", "uploads")));
+
+/* =====================================================
    HEALTH CHECK
 ===================================================== */
 
@@ -124,14 +135,10 @@ app.use(
    API ROUTES
 ===================================================== */
 
-// Register your API routes here.
-
-/* =====================================================
-   SERVER
-===================================================== */
-
-const server = http.createServer(app);
-
-export { app, server };
+app.use("/api", adminRoutes);
+app.use("/api", adminAuthRoutes);
+app.use("/api", employeeRoutes);
+app.use("/api", employeeBankDetailsRoutes);
+app.use("/api", employeeLoginRoutes);
 
 export default app;

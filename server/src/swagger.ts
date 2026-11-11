@@ -1,3 +1,4 @@
+
 import swaggerJsdoc from "swagger-jsdoc";
 
 export const swaggerSpec = swaggerJsdoc({
@@ -31,6 +32,7 @@ export const swaggerSpec = swaggerJsdoc({
       },
     },
 
+    // Apply JWT authentication globally
     security: [
       {
         bearerAuth: [],
