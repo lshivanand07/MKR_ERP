@@ -1,0 +1,5 @@
+PassengerAppRoot "/home/envhijum/erp_backend"
+PassengerBaseURI "/"
+PassengerNodejs "/home/envhijum/nodevenv/mkr_backend/24/bin/node"
+PassengerAppType node
+PassengerStartupFile dist/server.js
