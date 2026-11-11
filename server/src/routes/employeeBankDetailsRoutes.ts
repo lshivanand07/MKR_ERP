@@ -12,9 +12,6 @@ import { adminAuth } from "../middleware/authorization.js";
 
 const router = Router();
 
-// Only admin and superadmin can access bank details.
-router.use(adminAuth);
-
 /**
  * @swagger
  * tags:
@@ -65,8 +62,8 @@ router.use(adminAuth);
  *       409:
  *         description: Bank details already exist
  */
-router.post("/add-employee-bank-details", createEmployeeBankDetailsController);
-router.post("/employee-bank-details", createEmployeeBankDetailsController);
+router.post("/add-employee-bank-details", adminAuth, createEmployeeBankDetailsController);
+router.post("/employee-bank-details", adminAuth, createEmployeeBankDetailsController);
 
 /**
  * @swagger
@@ -80,8 +77,8 @@ router.post("/employee-bank-details", createEmployeeBankDetailsController);
  *       200:
  *         description: Bank details fetched successfully
  */
-router.get("/get-employee-bank-details", getAllEmployeeBankDetailsController);
-router.get("/employee-bank-details", getAllEmployeeBankDetailsController);
+router.get("/get-employee-bank-details", adminAuth, getAllEmployeeBankDetailsController);
+router.get("/employee-bank-details", adminAuth, getAllEmployeeBankDetailsController);
 
 /**
  * @swagger
@@ -105,8 +102,8 @@ router.get("/employee-bank-details", getAllEmployeeBankDetailsController);
  *       404:
  *         description: Bank details not found
  */
-router.get("/get-employee-bank-details/:employeeId", getEmployeeBankDetailsController);
-router.get("/employee-bank-details/:employeeId", getEmployeeBankDetailsController);
+router.get("/get-employee-bank-details/:employeeId", adminAuth, getEmployeeBankDetailsController);
+router.get("/employee-bank-details/:employeeId", adminAuth, getEmployeeBankDetailsController);
 
 /**
  * @swagger
@@ -151,10 +148,10 @@ router.get("/employee-bank-details/:employeeId", getEmployeeBankDetailsControlle
  *       404:
  *         description: Bank details not found
  */
-router.put("/edit-employee-bank-details/:employeeId", updateEmployeeBankDetailsController);
-router.patch("/edit-employee-bank-details/:employeeId", updateEmployeeBankDetailsController);
-router.put("/employee-bank-details/:employeeId", updateEmployeeBankDetailsController);
-router.patch("/employee-bank-details/:employeeId", updateEmployeeBankDetailsController);
+router.put("/edit-employee-bank-details/:employeeId", adminAuth, updateEmployeeBankDetailsController);
+router.patch("/edit-employee-bank-details/:employeeId", adminAuth, updateEmployeeBankDetailsController);
+router.put("/employee-bank-details/:employeeId", adminAuth, updateEmployeeBankDetailsController);
+router.patch("/employee-bank-details/:employeeId", adminAuth, updateEmployeeBankDetailsController);
 
 /**
  * @swagger
@@ -178,7 +175,7 @@ router.patch("/employee-bank-details/:employeeId", updateEmployeeBankDetailsCont
  *       404:
  *         description: Bank details not found
  */
-router.delete("/delete-employee-bank-details/:employeeId", deleteEmployeeBankDetailsController);
-router.delete("/employee-bank-details/:employeeId", deleteEmployeeBankDetailsController);
+router.delete("/delete-employee-bank-details/:employeeId", adminAuth, deleteEmployeeBankDetailsController);
+router.delete("/employee-bank-details/:employeeId", adminAuth, deleteEmployeeBankDetailsController);
 
 export default router;

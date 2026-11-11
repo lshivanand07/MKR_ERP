@@ -15,9 +15,6 @@ import { adminAuth } from "../middleware/authorization.js";
 const router = Router();
 const employeeUpload = upload("employee");
 
-// Apply admin authentication to all employee routes
-// router.use(adminAuth);
-
 /**
  * @swagger
  * tags:
@@ -86,16 +83,19 @@ const employeeUpload = upload("employee");
  */
 router.post(
   "/add-employees",
+  adminAuth,
   employeeUpload.single("employee_img"),
   createEmployeeController
 );
 router.post(
   "/add-employee",
+  adminAuth,
   employeeUpload.single("employee_img"),
   createEmployeeController
 );
 router.post(
   "/employees",
+  adminAuth,
   employeeUpload.single("employee_img"),
   createEmployeeController
 );
@@ -131,8 +131,8 @@ router.post(
  *       403:
  *         description: Admin access required
  */
-router.get("/get-employees", getAllEmployeesController);
-router.get("/employees", getAllEmployeesController);
+router.get("/get-employees", adminAuth, getAllEmployeesController);
+router.get("/employees", adminAuth, getAllEmployeesController);
 
 /**
  * @swagger
@@ -160,9 +160,9 @@ router.get("/employees", getAllEmployeesController);
  *       404:
  *         description: Employee not found
  */
-router.get("/get-employees/:id", getEmployeeByIdController);
-router.get("/get-employee/:id", getEmployeeByIdController);
-router.get("/employees/:id", getEmployeeByIdController);
+router.get("/get-employees/:id", adminAuth, getEmployeeByIdController);
+router.get("/get-employee/:id", adminAuth, getEmployeeByIdController);
+router.get("/employees/:id", adminAuth, getEmployeeByIdController);
 
 /**
  * @swagger
@@ -227,26 +227,31 @@ router.get("/employees/:id", getEmployeeByIdController);
  */
 router.put(
   "/edit-employees/:id",
+  adminAuth,
   employeeUpload.single("employee_img"),
   updateEmployeeController
 );
 router.patch(
   "/edit-employees/:id",
+  adminAuth,
   employeeUpload.single("employee_img"),
   updateEmployeeController
 );
 router.put(
   "/edit-employee/:id",
+  adminAuth,
   employeeUpload.single("employee_img"),
   updateEmployeeController
 );
 router.patch(
   "/edit-employee/:id",
+  adminAuth,
   employeeUpload.single("employee_img"),
   updateEmployeeController
 );
 router.put(
   "/employees/:id",
+  adminAuth,
   employeeUpload.single("employee_img"),
   updateEmployeeController
 );
@@ -277,8 +282,8 @@ router.put(
  *       404:
  *         description: Employee not found
  */
-router.delete("/delete-employees/:id", deleteEmployeeController);
-router.delete("/delete-employee/:id", deleteEmployeeController);
-router.delete("/employees/:id", deleteEmployeeController);
+router.delete("/delete-employees/:id", adminAuth, deleteEmployeeController);
+router.delete("/delete-employee/:id", adminAuth, deleteEmployeeController);
+router.delete("/employees/:id", adminAuth, deleteEmployeeController);
 
 export default router;

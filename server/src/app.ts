@@ -135,10 +135,13 @@ app.use(
    API ROUTES
 ===================================================== */
 
-app.use("/api", adminRoutes);
+// Public authentication routes (no token required)
 app.use("/api", adminAuthRoutes);
+app.use("/api", employeeLoginRoutes);
+
+// Protected routes
+app.use("/api", adminRoutes);
 app.use("/api", employeeRoutes);
 app.use("/api", employeeBankDetailsRoutes);
-app.use("/api", employeeLoginRoutes);
 
 export default app;
